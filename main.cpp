@@ -5,10 +5,13 @@
 #include <thread>
 #include <conio.h>
 #include <windows.h>
+#include <functional>
 #include <iomanip>
 #include <fstream>
 #include <mmsystem.h>
 #include <math.h>
+
+                                //------------------developed-by-msc24x-------------------------//
 
 #include "Menu_xtra.h"
 #include "PrintPaster.h"
@@ -27,11 +30,13 @@ using namespace std;
 
 // RPERESENTS OBJECTS AND THEIR POSITIONS
 int surface  = 35;
-int treeP, tree2P;
+int treeP, tree2P, birdP;
 int dino = surface;
+int birdHeight = 25;
 
 
 //TO BE SAVED NECCESSARY
+bool incmngBirds = false;
 int HiJumps = 0;
 int HiScore = 0;
 bool sounds = true;
@@ -53,6 +58,7 @@ static Processing objProc;
 static FRONTEND objFend;
 
 //SUPPORT BOOLEANS AND FOR REAL TIME INFORMATION
+int bestJump;
 bool NewGame = false;
 bool hit = 0;
 long int frame =0;
@@ -72,11 +78,12 @@ bool cheatOn = false;
 //saving the info that user pressed enter
 void jump()
 {
-	while(running && !quitIt)
+	while(1)
 	{
-	    if(!running) return;
+	    if(quitIt ) break;
 
-		j=getch();
+	    if(running) j=getch();
+
 		if(((j==32 || j==10) && ! stillJumping)  && !cheatOn)
 		{
 			jumped = true;
@@ -103,13 +110,17 @@ int main()
     objPP.openScreen();
 	if(frame == 0 )
 	{
+	    SetConsoleTitle("Dino : The Age of Extinction");
+
 	    system("MODE  CON COLS=160 LINES=45");
 
 	    obj.hideCursor();
 
 	    srand(time(NULL));
+
         treeP = 120 + rand()%180;
         tree2P = 120 + rand()%180;
+        birdP = 300 + rand()%300;
 
         objProc.linkToMain(obj, objPP,objSave);
 
@@ -129,7 +140,7 @@ int main()
     if(paused)
     {
         obj.placeCursor(0, SCREEN_HIEGHT/2);
-        cout << setw(SCREEN_WIDTH/2) << "P A U S E D";
+        cout << setfill(' ') << setw(SCREEN_WIDTH/2) << "P A U S E D";
         cin.ignore();
         system("cls");
         paused = false;
@@ -137,7 +148,8 @@ int main()
 
     if(cheatOn)
     {
-        if(( tree2P- dino == 2 ||  treeP- dino == 2) && ! stillJumping)
+
+        if(( tree2P- dino <= bestJump ||  treeP- dino <= bestJump || (birdP - dino <= bestJump && birdHeight == 10)) && !stillJumping)
         {
             jumped  = true;
         }
@@ -147,13 +159,13 @@ int main()
 
 	//making the jump
 	if(jumped)
-	{
+	{  jumped = false;
+
 		whenjumped =  frame;
-		 dino--;
-		 score+=5;
-		 jumps++;
-		jumped = false;
-		 stillJumping = true;
+
+        dino--;     score+=5;   jumps++;
+
+        stillJumping = true;
 	}
 
     objProc.smoothingJump();
@@ -165,20 +177,25 @@ int main()
 	objProc.gameOver();
 
 	if(powerOff ) {
+
         running = false;
 
-        system("CLS");obj.placeCursor(0, SCREEN_HIEGHT/2);cout << setw(SCREEN_WIDTH/2) << "Come back when you've improved!";
+        system("CLS");
+
+        objFend.credits(); //system("CLS");obj.placeCursor(0, SCREEN_HIEGHT/2);cout <<setfill(' ')<< setw(SCREEN_WIDTH/2 + 16) << "D E V E L O P E D  B Y   M S C 2 4 X\n"; cin.get();
 
         objProc.updateDatas();
 
         objSave.Saving(objSave.openSaveFile());
 
         in_air.join();
+
         return 0;
     }
 
      tree2P-=difficulty;
      treeP-=difficulty;
+     birdP-= difficulty;
 
     main();
 

@@ -28,18 +28,18 @@ static FRONTEND objFend;
 
 void PrintPaster::printUS()
 {
-    Screen.seekp(-1, ios_base::cur);//putchar('\b');
+    /*Screen.seekp(-1, ios_base::cur);//putchar('\b');
     Screen.get(d);
-    if(d == 'T') { hit = 1; }
+    if(d == 'T') { hit = 1; }*/
     Screen.seekp(-1, ios_base::cur);
     Screen << 'U';
 }
 
 void PrintPaster::printLS()
 {
-    Screen.seekp(-1, ios_base::cur);
+    /*Screen.seekp(-1, ios_base::cur);
     Screen.get(d);
-    if(d == 'T') { hit = 1; }
+    if(d == 'T') { hit = 1; }*/
     Screen.seekp(-1, ios_base::cur);
     Screen << 'L';
 }
@@ -83,8 +83,53 @@ void PrintPaster::PrinterEngine()
 			if( r==surface-1)
 			{
 				Screen << '_';
-			}else if(((r<surface-1 && r>=surface-6) || ( (r<=surface-5 && r>=surface-40) && c < 23 ) ) || r >=surface) {Screen << ' ';}
+            }else /*if((((r<surface-1 && r>=surface-6) || r == surface-25) || ( (r<=surface-5 && r>=surface-40 && r !=  surface-25) && c < 23 ) ) || r >=surface)*/ {Screen << ' ';}
 
+			//BIRD
+
+			if(
+                    /*((r == surface -birdHeight)  && ( c == birdP))
+      ||            ((r == surface -birdHeight+1) && ( c == birdP || c == birdP+1 || c == birdP+2 ))
+      ||*/          ((r == surface -birdHeight+2)  && (c >= birdP-5 && c <=birdP-2)   )
+      ||            ((r == surface -birdHeight+3)  && (c >= birdP-5 && c <=birdP+8 )  )
+      ||            ((r == surface -birdHeight+4)  && (c >= birdP-2 && c <=birdP+6 )  )
+
+            )
+
+			{
+			    printTree();
+			    /*if(r == surface-birdHeight && c == birdP) printLS();
+			    if((r == surface-birdHeight+1) && ((c <= birdP-4 && c >= birdP-7) || c == birdP +2)) printLS();*/
+			    if((r == surface-birdHeight+2) && (c == birdP-2 || c == birdP-5)) printLS();
+			    if((r == surface-birdHeight+3) && (c == birdP-5 || c >= birdP+4)) printUS();
+			    if((r == surface-birdHeight+4) && (c == birdP-2 || c >= birdP+4)) printUS();
+
+
+			}
+
+			if((frame/5)%2)
+            {
+                if(
+                    ((r == surface -birdHeight)  && ( c == birdP))
+      ||            ((r == surface -birdHeight+1) && ( c == birdP || c == birdP+1 || c == birdP+2 ))
+      ||            ((r == surface -birdHeight+2)  && (c >= birdP && c <=birdP+3)   )
+                   )
+                   {
+                       printTree();
+                       if(r == surface-birdHeight && c == birdP) printLS();
+                       if((r == surface-birdHeight+1) && ((c <= birdP-4 && c >= birdP-7) || c == birdP +2)) printLS();
+                       if((r == surface -birdHeight+2)  && (c ==birdP+3)   ) printLS();
+                   }
+            }
+            else{
+
+                if((r == surface - birdHeight + 5) && (c == birdP || c == birdP+1 || c == birdP+2))
+                {
+                    printTree();
+                    if(c == birdP+2) printUS();
+                }
+                if((r == surface - birdHeight + 6) && (c == birdP)) printUS();
+            }
 
 			//placing trees on surface
 
@@ -129,7 +174,7 @@ void PrintPaster::PrinterEngine()
                           ||  ((r == dino-6) && ((c >=13 && c <= 19)))
                           ||  ((r == dino-7) && ((c >=14 && c <= 21)))
                           ||  ((r == dino-8) && ((c >=14 && c <= 22)))
-                          ||  ((r == dino-9) && ((c >=14 && c <= 21)))
+                          ||  ((r == dino-9) && ((c >=14 && c <= 22)))
                           ||  ((r == dino-10) && ((c >=14 && c <= 21)))
 
               )
@@ -144,7 +189,7 @@ void PrintPaster::PrinterEngine()
                 if(r==dino-5 && (c == 11 || c == 20)) printLS();
                 if(r==dino-6 && (c == 19 || c == 13)) printLS();
                 if(r==dino-7 && (c == 21)) printLS();
-                if(r==dino-9 && (c == 17) && !hit){ if((frame/5)%30)Screen << ' '; else Screen << 'B'; }
+                if(r==dino-9 && (c == 17) && !hit){Screen.seekp(-1, ios_base::cur); if((frame/5)%30)Screen << ' '; else Screen << 'B'; }
                 else if(r==dino-9 && (c == 17) && hit){Screen << 'B';}
                 if((r == dino-10) && ((c ==14 || c == 21))) printLS();
                 if(!stillJumping)
@@ -191,6 +236,7 @@ void PrintPaster::printBlock()
     Screen << 'B';
 }
 
+//FOR SIMPLICITY THE BBIRD WILL ALSO BE CONTRUCTED FROM THIS TYPE OF BLOCK THAT IT TREE
 void PrintPaster::printTree()
 {
     Screen.seekp(-1, ios_base::cur);

@@ -1,6 +1,7 @@
 #include "SaveGame.h"
 #include "Menu_xtra.h"
 #include <fstream>
+#include <iostream>
 #include "DATAS.h"
 #define SCREEN_WIDTH 160
 #define SCREEN_HIEGHT 40
@@ -37,6 +38,9 @@ void SaveGame::Loading(bool file_opened)
     {
         SAVEFILE.close();
     }
+    if(difficulty == 2) bestJump = 5;
+    if(difficulty == 3) bestJump = 35;
+    if(difficulty == 4) bestJump = 60;
 }
 
 void SaveGame::Saving(bool file_opened)

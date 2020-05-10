@@ -14,7 +14,6 @@ class Processing
         void gameOver();
         void treesAI();
         void resetGame();
-
         void updateDatas();
     private:
         Menu_xtra obj;

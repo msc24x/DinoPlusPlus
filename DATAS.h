@@ -1,13 +1,17 @@
 #ifndef DATAS_H_INCLUDED
 #define DATAS_H_INCLUDED
 
+//------------------developed-by-msc24x-------------------------//
 
 // RPERESENTS OBJECTS AND THEIR POSITIONS
 extern int surface ;
-extern int treeP, tree2P;
+extern int treeP, tree2P, birdP;
 extern int dino ;
+extern int birdHeight;
 
 //SUPPORT BOOLEANS FOR REAL TIME INFORMATION
+extern bool incmngBirds;
+extern int bestJump;
 extern bool hit ;
 extern long int frame;
 extern bool stillJumping;

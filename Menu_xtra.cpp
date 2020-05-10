@@ -1,5 +1,6 @@
 #include "Menu_xtra.h"
 #include "SaveGame.h"
+#include "FRONTEND.h"
 #include <windows.h>
 #include <thread>
 #include <iostream>
@@ -12,12 +13,15 @@
 
 using namespace std;
 
+FRONTEND objFend;
+Processing objProc;
+
 void Menu_xtra::selectSubMech(int n)
 {
     nofsubOptions = n;
 
     keyPressed = _getch();
-    if(sounds)PlaySound("JUMP.wav", NULL , SND_ASYNC);
+    if(sounds)PlaySound("menu.wav", NULL , SND_ASYNC);
     if(keyPressed == '\r'){ selected = true;}
     if(keyPressed == ARR_LEFT){ pointingToSubOpt--; if(pointingToSubOpt<1) pointingToSubOpt = 1;}
     if(keyPressed == ARR_RIGHT){ pointingToSubOpt++; if(pointingToSubOpt>nofsubOptions) pointingToSubOpt = nofsubOptions;}
@@ -30,7 +34,7 @@ void Menu_xtra::selectMech(int n, int Align = 0)
     cout << (char)219;
 
     keyPressed = _getch();
-    if(sounds)PlaySound("JUMP.wav", NULL , SND_ASYNC );
+    if(sounds)PlaySound("menu.wav", NULL , SND_ASYNC );
     if(keyPressed == '\r'){ selected = true;}
     if(keyPressed == ARR_UP){ pointingTo--; if(pointingTo<1) pointingTo = 1;}
     if(keyPressed == ARR_DOWN){ pointingTo++; if(pointingTo>nofOptions) pointingTo = nofOptions;}
@@ -38,14 +42,25 @@ void Menu_xtra::selectMech(int n, int Align = 0)
 
 void Menu_xtra::printTitle()
 {
-    for(int t = 0; t<SCREEN_HIEGHT; t++){cout << '\n' << setfill(' ') << setw(SCREEN_WIDTH/2 - 29);}
 
-                                                                                    placeCursor(SCREEN_WIDTH/2 - 41, SCREEN_HIEGHT/4);
-    cout <<"_|_|_|    _|_|_|  _|      _|    _|_|   ";                               placeCursor(SCREEN_WIDTH/2 - 29, SCREEN_HIEGHT/4 + 1);
-    cout <<"_|    _|    _|    _|_|    _|  _|    _|      _|        _|     " ;        placeCursor(SCREEN_WIDTH/2 - 29, SCREEN_HIEGHT/4 + 2);
-    cout <<"_|    _|    _|    _|  _|  _|  _|    _|    _|_|_|    _|_|_|    ";        placeCursor(SCREEN_WIDTH/2 - 29, SCREEN_HIEGHT/4 + 3);
-    cout <<"_|    _|    _|    _|    _|_|  _|    _|      _|        _|      ";        placeCursor(SCREEN_WIDTH/2 - 29, SCREEN_HIEGHT/4 + 4);
-    cout <<"_|_|_|    _|_|_|  _|      _|    _|_|   ";
+
+    for(int t = 0; t<SCREEN_HIEGHT; t++){cout  << setfill(' ') << setw(SCREEN_WIDTH) << '\n';}
+                                                                                    placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4);
+    cout <<"_|_|_|    _|_|_|  _|      _|    _|_|  ";                               placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 1);
+    cout <<"_|    _|    _|    _|_|    _|  _|    _|";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 2);
+    cout <<"_|    _|    _|    _|  _|  _|  _|    _|";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 3);
+    cout <<"_|    _|    _|    _|    _|_|  _|    _|";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 4);
+    cout <<"_|_|_|    _|_|_|  _|      _|    _|_|  ";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 6);
+    cout <<"    --< THE AGE OF EXTINCTION >--    ";         placeCursor(SCREEN_WIDTH - 25, SCREEN_HIEGHT+2);
+
+    cout <<"build 2.0-rc1-20200510";
+
+
+    objFend.printSurface();
+    objFend.printDinoAnywhere(14, 28, 1);
+    objFend.printEgg(60,0);
+
+
 }
 
 void Menu_xtra::cls()
@@ -76,7 +91,7 @@ void Menu_xtra::placeCursor(short int x, short int y )
 
 void Menu_xtra::mainMenu(int W, int H)
 {
-    system("cls");
+    cls();//system("cls");
     SCREEN_HIEGHT = H; SCREEN_WIDTH = W;
     selected = false;
     printTitle();
@@ -92,10 +107,13 @@ void Menu_xtra::mainMenu(int W, int H)
 
         selectMech(4);
     }
+    if(sounds)PlaySound("selected.wav", NULL , SND_ASYNC);
     selected = false;
      if(pointingTo == 1)
      {
-
+        if(running)objFend.video();
+        objProc.resetGame();
+        system("cls");
      }
 
      if(pointingTo == 2)
@@ -116,7 +134,7 @@ void Menu_xtra::mainMenu(int W, int H)
 
 void Menu_xtra::settings()
 {
-    system("cls");
+    cls();//system("cls");
     printTitle();
     pointingTo = 1;
     selected = false;
@@ -134,6 +152,7 @@ void Menu_xtra::settings()
         cout << "  Back";
         selectMech(3, 8);
     }
+    if(sounds)PlaySound("selected.wav", NULL , SND_ASYNC);
     selected = false;
 
     if(pointingTo == 1)
@@ -160,6 +179,7 @@ void Menu_xtra::settings()
             if(pointingToSubOpt == 2) cout << "<    OFF      ";
             selectSubMech(2);
         }
+        if(sounds)PlaySound("selected.wav", NULL , SND_ASYNC);
         if(pointingToSubOpt == 1) sounds = true;
         else if(pointingToSubOpt == 2) sounds = false;
         settings();
@@ -171,7 +191,7 @@ void Menu_xtra::settings()
 
 void Menu_xtra::help()
 {
-    system("cls");
+    cls();//system("cls");
     printTitle();
     pointingTo = 1;
     selected = false;
