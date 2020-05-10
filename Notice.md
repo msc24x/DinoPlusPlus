@@ -1,6 +1,7 @@
 *******************************************************************************
 
-The DinoPlusPlus project is written and copyrighted by me (msc24x)
+The " Dino : The Age of Extinction " project code is written and copyrighted by
+me (msc24x)
 and released under the following license
 
 *******************************************************************************
