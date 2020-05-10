@@ -9,3 +9,7 @@
 
 In the Cretaceous, meteors are showering and you have to save the dinosaur from the incoming obstacles.
 Good luck for your journey!!
+
+Author         : [msc24x](https://github.com/msc24x/)
+</br>
+Special Thanks : [lscambo13](https://github.com/lscambo13/)
