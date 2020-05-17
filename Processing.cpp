@@ -64,8 +64,10 @@ void Processing::gameOver()
 	    running = false;
                                     obj.placeCursor(SCREEN_WIDTH/2-9, SCREEN_HIEGHT/2);
 	    cout << "G A M E   O V E R";
-		cin.get();
+		getch();
 		frame = 0;
+
+		updateDatas();
 
 		objSave.Saving(objSave.openSaveFile());
 		//powerOff = true;
@@ -79,7 +81,9 @@ void Processing::treesAI()
     {
         if((frame/5)%2) birdHeight = 25;
         else birdHeight = 10;
-        birdP = 300 + rand()%300;
+
+         do{birdP = 300 + rand()%300;} while(( birdP - treeP<80 &&  treeP- birdP<80) || ( tree2P- birdP<80 &&  birdP- tree2P<80) );
+
     }
 
     //displacing the trees if they're too close to star , at the beginning and at the point when any tree passes
@@ -116,21 +120,25 @@ void Processing::treesAI()
 
 void Processing::resetGame()
 {
-     hit = 0;
-     surface =35;
+    hit = 0;
+    surface =35;
     quitIt = false;
-     dino = surface;
-     jumps = 0;
-     stillJumping = false;
+    dino = surface;
+    jumps = 0;
+    powerOff = false;
+    stillJumping = false;
    // srand(time(NULL));
-     treeP = 120 + (rand()%300);
-     tree2P = 120 + (rand()%300);
-     birdP = 300 + rand()%300;
-     score = 0;
+    treeP = 120 + (rand()%300);
+    tree2P = 120 + (rand()%300);
+    birdP = 300 + rand()%300;
+    score = 0;
     running = true;
     treeVanish=true;
     tree2Vanish=true;
-     frame = 0;
+    frame = 0;
+    if(difficulty == 2) bestJump = 5;
+    if(difficulty == 3) bestJump = 35;
+    if(difficulty == 4) bestJump = 60;
 }
 
 

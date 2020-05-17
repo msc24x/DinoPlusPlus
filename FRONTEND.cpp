@@ -32,11 +32,11 @@ fstream ScreenV;
 
 void FRONTEND::callout()
 {
-    objMX.placeCursor(30, 23);  cout << ' '; for(int t = 0 ; t < 29; t++) cout << LS;
-    objMX.placeCursor(30, 24);  cout << B; objMX.placeCursor(60, 24); cout << B;
-    objMX.placeCursor(29, 25);  cout << B << ' '; objMX.placeCursor(60, 25); cout << B;
-    objMX.placeCursor(28, 26);  cout << B << ' ' << ' '; objMX.placeCursor(60, 26); cout << B;
-    objMX.placeCursor(27, 27);  for(int t = 0 ; t < 33; t++) cout << US;
+    objMX.placeCursor(30, 23);  putchar(' '); for(int t = 0 ; t < 29; t++) putchar(LS);
+    objMX.placeCursor(30, 24);  putchar(B); objMX.placeCursor(60, 24); putchar(B);
+    objMX.placeCursor(29, 25);  putchar(B) ;putchar(' '); objMX.placeCursor(60, 25); putchar(B);
+    objMX.placeCursor(28, 26);  putchar(B); printf("  "); objMX.placeCursor(60, 26);putchar(B);
+    objMX.placeCursor(27, 27);  for(int t = 0 ; t < 33; t++) putchar(US);
 }
 
 
@@ -56,7 +56,8 @@ void FRONTEND::makeSpaceinConsole()
     objMX.placeCursor(0,0);
     for(int s = 0; s< SCREEN_HIEGHT; s++)
     {
-        cout << setfill(' ') << setw(SCREEN_WIDTH) << '\n';
+        cout << string(SCREEN_WIDTH, ' ');putchar(10); //<< "                                                                                                                       \n";
+        //cout << setfill(' ') << setw(SCREEN_WIDTH) << '\n';
     }
 }
 
@@ -64,20 +65,20 @@ void FRONTEND::printDinoAnywhere(int x, int y, int eyes)
 {
     //     y=28
                                                                         objMX.placeCursor(x,y++);
-    cout << LS << B<< B<< B<< B<< B<< B<< LS;                                     objMX.placeCursor(x, y++);
-    cout << B << B<< B << B;
+    cout << LS << string(6,B) << LS;                                     objMX.placeCursor(x, y++);
+    cout << string(4,B);
     if(eyes ==0 ) cout << B;
     else if(eyes == 1) cout << ' ';
     else if(eyes == 2) cout << "\b  ";
-    cout << B<< B<< B<< B;                             objMX.placeCursor(x, y++);
-    cout << B<< B<< B<< B << B<< B<< B<< B<< B;                  objMX.placeCursor(x, y++);
-    cout << B<< B<< B<< B<< B<< B<< B<< LS;                                  objMX.placeCursor(x-1, y++);
-    cout << LS << B<< B<< B<< B<< B<< LS;                            objMX.placeCursor(x-10, y++);
-    cout << B << "      " << LS<< B<< B<< B<< B<< B<< B<< B<< B<< LS;               objMX.placeCursor(x-10, y++);
-    cout << B<< B  << "   " << LS<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< US<< B;       objMX.placeCursor(x-9, y++);
-    cout << B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< US;         objMX.placeCursor(x-9, y++);
-    cout << US<< B<< B<< B<<B<< B<<B<< B<< B<< B<< B<< B<< B<< US;                objMX.placeCursor(x-7, y++);
-    cout << US<< B<< B<< B<<B<< B<< B<< B<< B<< US;                        objMX.placeCursor(x-5, y++);
+    cout << string(4,B);                             objMX.placeCursor(x, y++);
+    cout << string(9,B);                  objMX.placeCursor(x, y++);
+    cout << string(7,B)<< LS;                                  objMX.placeCursor(x-1, y++);
+    cout << LS << string(5,B)<< LS;                            objMX.placeCursor(x-10, y++);
+    cout << B << "      " << LS<< string(8,B)<< LS;               objMX.placeCursor(x-10, y++);
+    cout << B<< B  << "   " << LS<< string(10,B)<< US<< B;       objMX.placeCursor(x-9, y++);
+    cout << string(14,B)<< US;         objMX.placeCursor(x-9, y++);
+    cout << US<< string(12,B)<< US;                objMX.placeCursor(x-7, y++);
+    cout << US<< string(8,B)<< US;                        objMX.placeCursor(x-5, y++);
     cout << B<< LS << "  " << B<< LS;
 
 }
@@ -94,20 +95,22 @@ void FRONTEND::change_text_color(WORD color)
 void FRONTEND::printSurface()
 {
     objMX.placeCursor(0,37);
-    for(int x = 0; x < SCREEN_WIDTH; x++){cout << '_';}
+    cout << string(SCREEN_WIDTH, '_'); //for(int x = 0; x < SCREEN_WIDTH; x++){cout << '_';}
 }
 
 void FRONTEND::printEgg(int x, bool stone = false)
 {
                                                         objMX.placeCursor(x+2, 33);
     cout << LS << LS << LS;                            objMX.placeCursor(x, 34);
-    cout << LS << B << B << B << B << B << LS;      objMX.placeCursor(x, 35);
-    cout << B << B << US << LS << B << B << B;      objMX.placeCursor(x, 36);
-    cout << B << B << ' ' << B << B << B << B;            objMX.placeCursor(x, 37);
-    cout << B << B << B << B << B << B << B;
-    if(stone)cout << "___" << B << B << B << B;
+    if(!stone)  {cout << LS <<string(5,B)<< LS;      objMX.placeCursor(x, 35);}
+    if( stone)  {cout << LS <<string(4,B) << "  ";      objMX.placeCursor(x, 35);}
+    if(stone){   cout << B << B << US << LS << "   ";      objMX.placeCursor(x, 36);}
+    if(!stone){  cout << B << B << US << LS << B << B << B;      objMX.placeCursor(x, 36);}
+    cout << B << B << ' ' << string(4,B);            objMX.placeCursor(x, 37);
+    cout << string(7,B);
+    if(stone)cout << "___" << string(4,B);
     objMX.placeCursor(x+1, 38);
-    cout << US << B << B << B << US;
+    cout << US << string(3,B)<< US;
 }
 
 void FRONTEND::video()
@@ -122,10 +125,10 @@ void FRONTEND::video()
     printDinoAnywhere(14, 28,0);
     printEgg(eggVP);
 
-    callout(); objMX.placeCursor(32, 25); cout << "Zzzzz...ZZzz...            ";
+    callout(); objMX.placeCursor(32, 25); printf("Zzzzz...ZZzz...            ");
 
     this_thread::sleep_for(chrono::seconds(3));
-    x = 100; y = 5;
+    x = 100; y = -4;
     while(1)
     {
     makeSpaceinConsole();
@@ -136,34 +139,30 @@ void FRONTEND::video()
 
     //callout(); objMX.placeCursor(32, 25); cout << "tun , tung tung tung tun...";
 
-    if(y >= 35)
-    {
-        if(sounds)PlaySound("SB.wav", NULL, SND_SYNC);
-        printDinoAnywhere(14,28, 2);
-
-        break;
-    }
+    if(y >= 34) break;
 
 
                                                             objMX.placeCursor(x,y);
     cout<<"       ....";                    objMX.placeCursor(x,y+1);
     cout<<"   ......"               ;       objMX.placeCursor(x,y+2);
-    cout<< LS<< B<< B<< B<< B<< LS<< '.';           objMX.placeCursor(x,y+3);
-    cout<< B<< B<< B<< B<< B<< B<< '.';         objMX.placeCursor(x,y+4);
-    cout<< US<< B<< B<< B<< B<< US;             objMX.placeCursor(x,y+5);
-    y+=4; x-=4;
+    cout<< LS<<string(4,B)<< LS<< '.';           objMX.placeCursor(x,y+3);
+    cout<< string(6,B)<< '.';         objMX.placeCursor(x,y+4);
+    cout<< US<< string(4,B)<< US;             objMX.placeCursor(x,y+5);
+    y+=2; x-=2;
     this_thread::sleep_for(chrono::milliseconds(90));
 
     }
-    if(sounds)PlaySound("MM.wav", NULL, SND_ASYNC);
 
     printEgg(eggVP, 1);
+    if(sounds)PlaySound("SB.wav", NULL, SND_SYNC);
+    printDinoAnywhere(14,28, 2);
+    if(sounds)PlaySound("MM.wav", NULL, SND_ASYNC);
 
-    callout(); objMX.placeCursor(32, 25); cout << "Oh! what was that?         ";
+    callout(); objMX.placeCursor(32, 25); printf("Oh! what was that?         ");
 
     this_thread::sleep_for(chrono::seconds(1));
 
-    x = 50; y = 5;
+    x = 50; y = 0;
     while(1)
     {
         makeSpaceinConsole();
@@ -178,14 +177,14 @@ void FRONTEND::video()
         cout<<"                          ......";      objMX.placeCursor(x,y+1);
         cout<<"                   .........";           objMX.placeCursor(x,y+2);
         cout<<"    ..................";             objMX.placeCursor(x,y+3);
-        cout<< '.'<< LS<< LS<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< LS<< LS<< '.'<< '.'<< '.'<< '.';objMX.placeCursor(x,y+4);
-        cout<< ' '<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< ' '<< '.'<< '.';objMX.placeCursor(x,y+5);
-        cout<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< '.';objMX.placeCursor(x,y+6);
-        cout<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< '.';objMX.placeCursor(x,y+7);
-        cout<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< '.';objMX.placeCursor(x,y+8);
-        cout<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< '.';objMX.placeCursor(x,y+9);
-        cout<< ' '<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B;objMX.placeCursor(x,y+10);
-        cout<< '.'<< US<< US<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< B<< US<< US;
+        cout<< '.'<< LS<< LS<< string(11,B)<< LS<< LS<< '.'<< '.'<< '.'<< '.';objMX.placeCursor(x,y+4);
+        cout<< ' '<<string(15,B)<< ' '<< '.'<< '.';objMX.placeCursor(x,y+5);
+        cout<< string(17,B)<< '.';objMX.placeCursor(x,y+6);
+        cout<< string(17,B)<< '.';objMX.placeCursor(x,y+7);
+        cout<< string(17,B)<< '.';objMX.placeCursor(x,y+8);
+        cout<< string(17,B)<< '.';objMX.placeCursor(x,y+9);
+        cout<< ' '<< string(16,B);objMX.placeCursor(x,y+10);
+        cout<< '.'<< US<< US<< string(11,B)<< US<< US;
 
 	     y+=1; x-=5;
         this_thread::sleep_for(chrono::milliseconds(90));
@@ -193,9 +192,9 @@ void FRONTEND::video()
 
     }
 
-    if(sounds)PlaySound("LB.wav", NULL, SND_ASYNC);
+    if(sounds)PlaySound("LB.wav", NULL, SND_SYNC);
 
-    callout(); objMX.placeCursor(32, 25); cout << "I'm sorry my egg . . . Bye!";
+    callout(); objMX.placeCursor(32, 25); printf("I'm sorry my egg . . . Bye!");
 
     printDinoAnywhere(14,28,2);
 
@@ -228,14 +227,14 @@ void FRONTEND::video()
                 (r == surface && (c >= eggVP && c <= eggVP+4))
             ||  (r == surface-1 && ((c >= eggVP-1 && c <= eggVP+5) || (c >= eggVP+9 && c <= eggVP+12)))
             ||  (r == surface-2 && (c >= eggVP-1 && c <= eggVP+5 && c != eggVP+1))
-            ||  (r == surface-3 && (c >= eggVP-1 && c <= eggVP+5))
-            ||  (r == surface-4 && (c >= eggVP-1 && c <= eggVP+5))
+            ||  (r == surface-3 && (c >= eggVP-1 && c <= eggVP+2))
+            ||  (r == surface-4 && (c >= eggVP-1 && c <= eggVP+3))
             ||  (r == surface-5 && (c >= eggVP+1 && c <= eggVP+3))
                )
             {
                  printBlock();
                 if(r == surface-5 && (c >= eggVP+1 && c <= eggVP+3))  printLS();
-                if(r == surface-4 && (c == eggVP-1 || c == eggVP+5))  printLS();
+                if(r == surface-4 && (c == eggVP-1 ))  printLS();
                 if(r == surface-3 && (c == eggVP+1))  printUS();
                 if(r == surface-3 && (c == eggVP+2))  printLS();
                 if(r == surface && (c == eggVP || c == eggVP+4))  printUS();
@@ -307,9 +306,6 @@ void FRONTEND::credits()
                                                         objMX.placeCursor(SCREEN_WIDTH/2 - 19, SCREEN_HIEGHT/2 - 1);
     cout << "D E V E L O P E D   B Y   M S C 2 4 X";    objMX.placeCursor(SCREEN_WIDTH/2 - 9, SCREEN_HIEGHT/2 + 1);
     cout << "with love using c++"; //cout << "WITH LOVE USING C++";
-
-
-    cin.get();
 }
 
 void FRONTEND::printUS()

@@ -84,7 +84,7 @@ void jump()
 
 	    if(running) j=getch();
 
-		if(((j==32 || j==10) && ! stillJumping)  && !cheatOn)
+		if(((j==32 || j==10) && ! stillJumping) && !cheatOn)
 		{
 			jumped = true;
 			if(sounds)PlaySound(TEXT("JUMP.wav"), NULL ,SND_ASYNC);
@@ -101,6 +101,11 @@ void jump()
         {
             if(cheatOn) cheatOn = false;
             else if(!cheatOn) cheatOn = true;
+        }
+        if(score <= HiScore)
+        {
+            objProc.updateDatas();
+            objSave.Saving(objSave.openSaveFile());
         }
 	}
 }
@@ -148,10 +153,10 @@ int main()
 
     if(cheatOn)
     {
-
-        if(( tree2P- dino <= bestJump ||  treeP- dino <= bestJump || (birdP - dino <= bestJump && birdHeight == 10)) && !stillJumping)
+        if(( (tree2P- dino <= bestJump && dino < tree2P) ||  (treeP- dino <= bestJump  && dino < treeP) || (birdP - dino <= bestJump && birdHeight == 10 && dino < birdP)) && !stillJumping)
         {
             jumped  = true;
+			if(sounds)PlaySound(TEXT("JUMP.wav"), NULL ,SND_ASYNC);
         }
     }
 
@@ -176,13 +181,13 @@ int main()
 
 	objProc.gameOver();
 
-	if(powerOff ) {
+	if(powerOff ) { powerOff = false;
 
         running = false;
 
         system("CLS");
 
-        objFend.credits(); //system("CLS");obj.placeCursor(0, SCREEN_HIEGHT/2);cout <<setfill(' ')<< setw(SCREEN_WIDTH/2 + 16) << "D E V E L O P E D  B Y   M S C 2 4 X\n"; cin.get();
+        objFend.credits();
 
         objProc.updateDatas();
 
@@ -190,6 +195,7 @@ int main()
 
         in_air.join();
 
+        getch();
         return 0;
     }
 

@@ -46,14 +46,14 @@ void Menu_xtra::printTitle()
 
     for(int t = 0; t<SCREEN_HIEGHT; t++){cout  << setfill(' ') << setw(SCREEN_WIDTH) << '\n';}
                                                                                     placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4);
-    cout <<"_|_|_|    _|_|_|  _|      _|    _|_|  ";                               placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 1);
-    cout <<"_|    _|    _|    _|_|    _|  _|    _|";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 2);
-    cout <<"_|    _|    _|    _|  _|  _|  _|    _|";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 3);
-    cout <<"_|    _|    _|    _|    _|_|  _|    _|";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 4);
-    cout <<"_|_|_|    _|_|_|  _|      _|    _|_|  ";        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 6);
-    cout <<"    --< THE AGE OF EXTINCTION >--    ";         placeCursor(SCREEN_WIDTH - 25, SCREEN_HIEGHT+2);
+    printf("_|_|_|    _|_|_|  _|      _|    _|_|  ");                               placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 1);
+    printf("_|    _|    _|    _|_|    _|  _|    _|");        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 2);
+    printf("_|    _|    _|    _|  _|  _|  _|    _|");        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 3);
+    printf("_|    _|    _|    _|    _|_|  _|    _|");        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 4);
+    printf("_|_|_|    _|_|_|  _|      _|    _|_|  ");        placeCursor(SCREEN_WIDTH/2 - 20, SCREEN_HIEGHT/4 + 6);
+    printf("    --< THE AGE OF EXTINCTION >--    ");         placeCursor(SCREEN_WIDTH - 25, SCREEN_HIEGHT+2);
 
-    cout <<"build 2.0-rc1-20200510";
+    printf("build 2.0-rc2-20200514");
 
 
     objFend.printSurface();
@@ -100,10 +100,10 @@ void Menu_xtra::mainMenu(int W, int H)
     while(!selected)
     {
                                       placeCursor(SCREEN_WIDTH/2 - 8 , 2*SCREEN_HIEGHT/3 - 3);
-        cout << "  Play";             placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 - 2);
-        cout << "  Settings";         placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 - 1);
-        cout << "  Help";             placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 );
-        cout << "  Quit";
+        printf("  Play");             placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 - 2);
+        printf("  Settings");         placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 - 1);
+        printf("  Help");             placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 );
+        printf("  Quit");
 
         selectMech(4);
     }
@@ -141,15 +141,15 @@ void Menu_xtra::settings()
     while(!selected)
     {
                                                                     placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 5);
-        cout << "           SETTINGS           ";                   placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 3);
-        cout << "  Challenge   ";
-        if(difficulty == 2) cout << "    Normal    ";
-        if(difficulty == 3) cout << "     Hard     " ;
-        if(difficulty == 4) cout << "   Nightmare  " ;              placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 2)  ;
-        cout << "  Sounds      ";
-        if(sounds == 1) cout << "      ON      ";
-        if(sounds == 0) cout << "     OFF      " ;                  placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 1);
-        cout << "  Back";
+        printf("           SETTINGS           ");                   placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 3);
+        printf("  Challenge   ");
+        if(difficulty == 2) printf("    Normal    ");
+        if(difficulty == 3) printf("     Hard     " );
+        if(difficulty == 4) printf("   Nightmare  " );              placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 2)  ;
+        printf("  Sounds      ");
+        if(sounds == 1) printf("      ON      ");
+        if(sounds == 0) printf("     OFF      ") ;                  placeCursor(SCREEN_WIDTH/2 - 16, 2*SCREEN_HIEGHT/3 - 1);
+        printf("  Back");
         selectMech(3, 8);
     }
     if(sounds)PlaySound("selected.wav", NULL , SND_ASYNC);
@@ -161,9 +161,9 @@ void Menu_xtra::settings()
         while(!selected)
         {
             placeCursor(SCREEN_WIDTH/2 - 2, 2*SCREEN_HIEGHT/3 - 3);
-            if(pointingToSubOpt == 1) cout << "    Normal   >";
-            if(pointingToSubOpt == 2) cout << "<    Hard    >";
-            if(pointingToSubOpt == 3) cout << "<  Nightmare  ";
+            if(pointingToSubOpt == 1) printf("    Normal   >");
+            if(pointingToSubOpt == 2) printf("<    Hard    >");
+            if(pointingToSubOpt == 3) printf("<  Nightmare  ");
             selectSubMech(3);
         }
         difficulty = pointingToSubOpt+1;
@@ -175,8 +175,8 @@ void Menu_xtra::settings()
         while(!selected)
         {
             placeCursor(SCREEN_WIDTH/2 - 2, 2*SCREEN_HIEGHT/3 - 2);
-            if(pointingToSubOpt == 1) cout << "      ON     >";
-            if(pointingToSubOpt == 2) cout << "<    OFF      ";
+            if(pointingToSubOpt == 1) printf("      ON     >");
+            if(pointingToSubOpt == 2) printf("<    OFF      ");
             selectSubMech(2);
         }
         if(sounds)PlaySound("selected.wav", NULL , SND_ASYNC);
@@ -196,15 +196,13 @@ void Menu_xtra::help()
     pointingTo = 1;
     selected = false;
                                                                             placeCursor(SCREEN_WIDTH/2 - 8,  2*SCREEN_HIEGHT/3 - 5);
-    cout << "    HELP  ";                                                   placeCursor(SCREEN_WIDTH/2 - 8,  2*SCREEN_HIEGHT/3 - 4);
-    cout << "          ";                                                   placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 - 3);
-    cout << "  You have the responsibility to save the last dinosaur ";     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 - 2);
-    cout << "                on Earth from extinction.               ";     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 - 0);
-    cout << "  Too easy!? You can always change the difficulty in the";     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 + 1);
-    cout << "                     Settings menu.                     ";     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 + 2);
-    cout << "                      P  - Pause                        ";     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 + 3);
-    cout << "                       Q - Quit                         ";     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 + 4);
-    cout << "                     SPACE - Jump                       ";
+    printf("   HELP");                                                      placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 - 3);
+    printf("In the Cretaceous age, meteors are showering and you have ");     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 - 2);
+    printf("   to save the one of the last few dinosaurs from the   ");     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 - 1);
+    printf("         incoming obstacles from going extinct.         ");     placeCursor(SCREEN_WIDTH/2 - 8, 2*SCREEN_HIEGHT/3 + 1);
+    printf(" CONTROLS");                                                    placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 + 3);
+    printf("                  P - Pause  Q - Quit                 ");     placeCursor(SCREEN_WIDTH/2 - 30, 2*SCREEN_HIEGHT/3 + 4);
+    printf("               SPACE - Jump  Z - AI Mode              ");
 
     if(cin.get())
     {

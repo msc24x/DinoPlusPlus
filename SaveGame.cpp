@@ -54,4 +54,7 @@ void SaveGame::Saving(bool file_opened)
         SAVEFILE << ' ' << (int)sounds;
         SAVEFILE.close();
     }
+    if(difficulty == 2) bestJump = 5;
+    if(difficulty == 3) bestJump = 35;
+    if(difficulty == 4) bestJump = 60;
 }

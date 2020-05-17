@@ -55,7 +55,7 @@ void PrintPaster::PrinterEngine()
         Screen << '0';
     }
 
-	Screen << jumps  <<  setw(SCREEN_WIDTH-39) << "SCORE    : ";
+	Screen << jumps  <<  string(SCREEN_WIDTH-45, ' ') << "SCORE    : ";
 	for(int z = 0; z < 5-objFend.nofdigits(score/10); z++)
     {
         Screen << '0';
@@ -67,7 +67,7 @@ void PrintPaster::PrinterEngine()
     {
         Screen << '0';
     }
-	Screen << HiJumps << setw(SCREEN_WIDTH-39)  << "HI SCORE : ";
+	Screen << HiJumps << string(SCREEN_WIDTH-45, ' ')  << "HI SCORE : ";
 	for(int z = 0; z < 5-objFend.nofdigits(HiScore); z++)
     {
         Screen << '0';
@@ -215,6 +215,7 @@ void PrintPaster::screenDisplay()
             if(scr[x] == 'L') {scr[x] = LO_B;}
             if(scr[x] == 'U' && scr[x-1] != 'J') {scr[x] = UP_B;}
         }
+        //wprintf(L"%s\n", scr);//
         cout << scr << '\n';
     }
     frame++;
