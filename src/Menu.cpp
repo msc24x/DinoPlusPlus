@@ -91,7 +91,7 @@ void Menu::mainMenu(int W, int H)
 		//if (running) objFend.video();
 		Utils::resetGame();
 
-		system("cls");
+		if(!system("cls"))system("clear");
 	}
 
 	if (pointingTo == 2)
