@@ -1,18 +1,18 @@
-#ifndef PRINTPASTER_H
-#define PRINTPASTER_H
-#include "DATAS.h"
-#include <iostream>
-class PrintPaster
-{
-    public:
+#ifndef Printer_H
+#define Printer_H
 
-        void screenDisplay();
-        void openScreen();
-        void printUS();
-        void printLS();
-        void PrinterEngine();
-        void printBlock();
-        void printTree();
+
+class Printer
+{
+public:
+
+	void screenDisplay();
+	void openScreen();
+	void printUS();
+	void printLS();
+	void PrinterEngine();
+	void printBlock();
+	void printTree();
 };
 
-#endif // PRINTPASTER_H
+#endif // Printer_H

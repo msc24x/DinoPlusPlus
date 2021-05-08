@@ -1,25 +1,22 @@
-#ifndef PROCESSING_H
-#define PROCESSING_H
+#ifndef Processor_H
+#define Processor_H
 
-#include "Menu_xtra.h"
-#include "PrintPaster.h"
-#include "DATAS.h"
-#include "SaveGame.h"
+#include "Menu.h"
+#include "Save.h"
 
-class Processing
+class Processor
 {
-    public:
-        void linkToMain(Menu_xtra OM,        PrintPaster OP,       SaveGame OS);
-        void smoothingJump();
-        void gameOver();
-        void treesAI();
-        void resetGame();
-        void updateDatas();
-    private:
-        Menu_xtra obj;
-        PrintPaster objPP;
-        SaveGame objSave;
+public:
+	void linkToMain(Menu OM, Save OS);
+	void smoothingJump();
+	void gameOver();
+	void treesAI();
+	void updateRuntimeInfo();
+private:
+	Menu menu;// obj;
+			  //Printer printer;// objPP;
+	Save save;// objSave;
 };
 
 
-#endif // PROCESSING_H
+#endif // Processor_H

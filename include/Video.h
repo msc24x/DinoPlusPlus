@@ -1,11 +1,7 @@
-#ifndef FRONTEND_H
-#define FRONTEND_H
+#ifndef Video_H
+#define Video_H
 
-#include "Menu_xtra.h"
-#include "PrintPaster.h"
-#include "DATAS.h"
-#include "SaveGame.h"
-#include "Processing.h"
+
 
 #include <iostream>
 #include <fstream>
@@ -13,32 +9,27 @@
 #include <string>
 
 
-class FRONTEND
+class Video
 {
-    public:
-        int nofdigits(int number);
-        void makeSpaceinConsole();
-        void printDinoAnywhere(int x, int y, int eyes);
-        void change_text_color(WORD color);
-        void printSurface();
-        void printEgg(int x, bool );
-        void callout();
+public:
+	//void printDinoAnywhere(int x, int y, int eyes);
+	//void printSurface();
+	//void printEgg(int x, bool);
+	void callout();
 
-        void video();
+	void video();
 
+	void printUS();
+	void printLS();
 
-        void printUS();
-        void printLS();
+	void printBlock();
 
-        void credits();
+private:
 
-        void printBlock();
-    private:
-
-        int dinoVP = 37;
-        int eggVP = 60;
-        int x,y;
+	int dinoVP = 37;
+	int eggVP = 60;
+	int x, y;
 
 };
 
-#endif // FRONTEND_H
+#endif // Video_H
