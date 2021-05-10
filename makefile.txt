@@ -1,0 +1,28 @@
+INCLUDE = "E:\projects\RedocX\github\DinoPlusPlus\include"
+
+build/app.o : build/main.o build/Menu build/Printer build/Processor build/RuntimeInfo build/Save build/Utils build/Video
+	g++ build/main.o build/Menu build/Printer build/Processor build/RuntimeInfo build/Save build/Utils build/Video -o build/app.o
+
+build/Utils.o : src/Utils.cpp include/Utils.h
+	g++ src/Utils.cpp include/Utils.h -o build/Utils.o 
+
+build/Printer.o : src/Printer.cpp include/Printer.h
+	g++ src/Printer.cpp -o build/Printer.o -I $(INCLUDE)
+
+build/Menu.o : src/Menu.cpp include/Menu.h
+	g++ src/Menu.cpp include/Menu.h -o build/Menu.o -I $(INCLUDE)
+	
+build/Save.o : src/Save.cpp include/Save.h
+	g++ src/Save.cpp include/Save.h -o build/Save.o -I $(INCLUDE)
+	
+build/Processor.o : src/Processor.cpp include/Processor.h
+	g++ src/Processor.cpp include/Processor.h -o build/Processor.o -I $(INCLUDE)
+
+build/Video.o : src/Video.cpp include/Video.h
+	g++ src/Video.cpp include/Video.h -o build/Video.o -I $(INCLUDE)
+
+build/RuntimeInfo.o : include/RuntimeInfo.h
+	g++ src/RuntimeInfo.h -o build/RuntimeInfo.o -I $(INCLUDE)
+
+build/main.o : app/main.cpp
+	g++ app/main.cpp -o build/main.o -I $(INCLUDE)
